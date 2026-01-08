@@ -1131,6 +1131,10 @@
                 <span class="icon">📅</span>
                 <span class="label">Schedule Calendar</span>
             </a>
+            <a href="#" class="nav-item" data-page="events" onclick="navigateTo('events')">
+                <span class="icon">🎯</span>
+                <span class="label">Events</span>
+            </a>
             <a href="#" class="nav-item" data-page="deliverables" onclick="navigateTo('deliverables')">
                 <span class="icon">📋</span>
                 <span class="label">Deliverables</span>
@@ -1142,6 +1146,10 @@
             <a href="#" class="nav-item" data-page="partners" onclick="navigateTo('partners')">
                 <span class="icon">🤝</span>
                 <span class="label">Partner Overview</span>
+            </a>
+            <a href="#" class="nav-item" data-page="data-management" onclick="navigateTo('data-management')">
+                <span class="icon">📤</span>
+                <span class="label">Data Management</span>
             </a>
             <a href="#" class="nav-item" data-page="reports" onclick="navigateTo('reports')">
                 <span class="icon">📑</span>
@@ -1197,6 +1205,89 @@
                     <div class="stat-content">
                         <h3 id="stat-not-started">0</h3>
                         <p>Not Started</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Data Display (Read-only) -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>📊 Performance Overview</h2>
+                    <div id="last-updated" style="color: #666; font-size: 0.9rem;">
+                        <!-- Will show last update time -->
+                    </div>
+                </div>
+
+                <div id="performance-dashboard" style="display: none;">
+                    <!-- Performance Summary Cards -->
+                    <div id="performance-summary-dashboard" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <!-- Summary cards will be populated by JavaScript -->
+                    </div>
+
+                    <!-- Quick Performance Table -->
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                            <thead>
+                                <tr style="background: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                                    <th style="padding: 0.75rem; text-align: left; font-weight: 600;">ESO</th>
+                                    <th style="padding: 0.75rem; text-align: center; font-weight: 600;">Overall Progress</th>
+                                    <th style="padding: 0.75rem; text-align: center; font-weight: 600;">Top Category</th>
+                                    <th style="padding: 0.75rem; text-align: center; font-weight: 600;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="performance-overview-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="no-performance-data" style="text-align: center; padding: 3rem; color: #666;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                    <h3 style="margin-bottom: 1rem;">No Performance Data</h3>
+                    <p style="margin-bottom: 2rem;">Upload your ESO performance data to see insights and progress tracking.</p>
+                    <button onclick="navigateTo('data-management')" 
+                            style="background: var(--primary); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        📤 Upload Performance Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Deliverables Summary -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>📋 Deliverables Overview</h2>
+                    <button onclick="navigateTo('deliverables')" 
+                            style="background: #f8f9fa; color: #4472C4; border: 1px solid #4472C4; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;">
+                        View All →
+                    </button>
+                </div>
+
+                <div id="deliverables-dashboard">
+                    <!-- Deliverables Summary Cards -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: linear-gradient(135deg, #28a745, #20c997); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;" id="deliverables-closed-count">0</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">Closed</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #ffc107, #fd7e14); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;" id="deliverables-progress-count">0</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">In Progress</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #dc3545, #e83e8c); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;" id="deliverables-hold-count">0</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">On Hold</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #6c757d, #495057); color: white; padding: 1.5rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;" id="deliverables-total-count">0</div>
+                            <div style="font-size: 0.9rem; opacity: 0.9;">Total</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Deliverables -->
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="margin-bottom: 1rem; color: #333; font-size: 1rem;">Recent Deliverables</h4>
+                        <div id="recent-deliverables">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1398,7 +1489,164 @@
         <div id="partners-page" class="page">
             <div class="card">
                 <h2>Partner Performance Overview</h2>
-                <div class="partner-cards-grid" id="partner-cards"></div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ESO</th>
+                                <th>Overall Progress</th>
+                                <th>Top Category</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partners-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Page -->
+        <div id="events-page" class="page">
+            <div class="page-header">
+                <div class="search-bar">
+                    <input type="text" id="events-search" placeholder="🔍 Search events..." onkeyup="filterEvents()">
+                </div>
+                <div class="filters">
+                    <select id="events-eso-filter" onchange="filterEvents()">
+                        <option value="">All ESOs</option>
+                    </select>
+                    <select id="events-month-filter" onchange="filterEvents()">
+                        <option value="">All Months</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select id="events-status-filter" onchange="filterEvents()">
+                        <option value="">All Status</option>
+                        <option value="Done">Done</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Not Started">Not Started</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <select id="workstream-filter" onchange="filterEvents()">
+                        <option value="">All Workstreams</option>
+                        <option value="Incubation and Acceleration">Incubation & Acceleration</option>
+                        <option value="Communications">Communications</option>
+                        <option value="Learning Workstream">Learning</option>
+                    </select>
+                    <button class="btn-primary" onclick="addNewEvent()">+ Add Event</button>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 2rem;" id="events-grid"></div>
+        </div>
+
+        <!-- Data Management Page -->
+        <div id="data-management-page" class="page">
+            <div class="card">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">📤</div>
+                    <h2 style="margin-bottom: 1rem;">Data Management</h2>
+                    <p style="color: #666; max-width: 600px; margin: 0 auto;">
+                        Upload and manage your ESO performance data. Keep your dashboard up-to-date with the latest targets and achievements.
+                    </p>
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem;">
+                    <input type="file" id="csv-upload" accept=".csv,.xlsx,.xls" style="display: none;" onchange="handleFileUpload(event)">
+                    <button onclick="document.getElementById('csv-upload').click()" 
+                            style="background: var(--primary); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: 0.75rem; box-shadow: 0 4px 12px rgba(68, 114, 196, 0.3); transition: all 0.3s ease;">
+                        📤 Upload Performance Data
+                    </button>
+                    <button onclick="downloadTemplate()" 
+                            style="background: var(--success); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: 0.75rem; box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3); transition: all 0.3s ease;">
+                        📥 Download Template
+                    </button>
+                </div>
+
+                <!-- Upload Instructions -->
+                <div style="background: linear-gradient(135deg, #f8f9ff 0%, #e8f4fd 100%); padding: 2rem; border-radius: 12px; border-left: 5px solid var(--primary); margin-bottom: 2rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        📋 How to Upload Performance Data
+                    </h4>
+                    <ol style="margin-left: 1.5rem; line-height: 1.8; color: #444;">
+                        <li><strong>Download Template:</strong> Click "Download Template" to get the CSV format with sample data</li>
+                        <li><strong>Fill Your Data:</strong> Replace sample data with your ESO performance metrics (Outreach, Youth, PWD, Refugees, MSMEs)</li>
+                        <li><strong>Save File:</strong> Save as CSV format (compatible with Excel, Google Sheets, etc.)</li>
+                        <li><strong>Upload:</strong> Click "Upload Performance Data" and select your completed file</li>
+                        <li><strong>Review:</strong> Check the uploaded data in the table below and on the dashboard</li>
+                    </ol>
+                </div>
+
+                <!-- CSV Format Guide -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        📊 Expected CSV Format:
+                    </h4>
+                    <pre style="background: white; padding: 1rem; border-radius: 6px; font-size: 0.85rem; overflow-x: auto; border: 1px solid #dee2e6;">ESO,Outreach Target,Outreach Achieved,Youth Target,Youth Achieved,PWD Target,PWD Achieved,Refugees Target,Refugees Achieved,MSMEs Target,MSMEs Achieved
+Excel Hort,3000,1522,2500,192,150,84,1500,672,500,2
+MUBS EIIC,3000,2049,2500,0,150,108,90,8,500,4
+Your ESO Name,3000,0,2500,0,150,0,1500,0,500,0</pre>
+                </div>
+
+                <!-- Upload Status Messages -->
+                <div id="upload-status-container">
+                    <!-- Success/Error messages will appear here -->
+                </div>
+
+                <!-- Uploaded Data Table -->
+                <div id="performance-data-container" style="display: none;">
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%); border-radius: 12px; border-left: 5px solid var(--success);">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="font-size: 2rem;">✅</div>
+                            <div>
+                                <strong style="color: var(--success); font-size: 1.1rem;">Data uploaded successfully!</strong>
+                                <div id="upload-timestamp" style="color: #666; font-size: 0.9rem; margin-top: 0.25rem;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem;">📊 Uploaded Performance Data</h3>
+                    <div style="overflow-x: auto; margin-bottom: 2rem;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;">
+                            <thead>
+                                <tr style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white;">
+                                    <th style="padding: 1rem; text-align: left; font-weight: 600;">ESO</th>
+                                    <th style="padding: 1rem; text-align: center; font-weight: 600;">Outreach</th>
+                                    <th style="padding: 1rem; text-align: center; font-weight: 600;">Youth</th>
+                                    <th style="padding: 1rem; text-align: center; font-weight: 600;">PWD</th>
+                                    <th style="padding: 1rem; text-align: center; font-weight: 600;">Refugees</th>
+                                    <th style="padding: 1rem; text-align: center; font-weight: 600;">MSMEs</th>
+                                </tr>
+                            </thead>
+                            <tbody id="performance-table-body" style="background: white;"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Performance Summary -->
+                    <h3 style="margin-bottom: 1rem;">📈 Performance Summary</h3>
+                    <div id="performance-summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
+                        <!-- Summary cards will be populated by JavaScript -->
+                    </div>
+
+                    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                        <p style="color: #666; margin-bottom: 1rem;">Data updated successfully! View the results on your dashboard.</p>
+                        <button onclick="navigateTo('dashboard')" 
+                                style="background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                            📊 Go to Dashboard
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1609,13 +1857,73 @@
                 }
             });
 
+            // Update activity statuses based on business rules
+            updateActivityStatuses();
+
             renderDashboard();
             renderProgress();
             renderSchedule();
+            renderEvents();
             renderDeliverables();
             renderPerformance();
             renderPartners();
             populateFilters();
+            
+            // Initialize dashboard with existing performance data
+            initializeDashboard();
+        }
+
+        // Utility Functions
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showModal(content) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            const modalBody = document.createElement('div');
+            modalBody.style.cssText = `
+                background: white;
+                padding: 2rem;
+                border-radius: 12px;
+                max-width: 90%;
+                max-height: 90%;
+                overflow-y: auto;
+                position: relative;
+            `;
+            
+            modalBody.innerHTML = content + `
+                <button onclick="this.closest('.modal-overlay').remove()" 
+                        style="position: absolute; top: 1rem; right: 1rem; background: #f8f9fa; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #666;">
+                    ×
+                </button>
+            `;
+            
+            modal.className = 'modal-overlay';
+            modal.appendChild(modalBody);
+            document.body.appendChild(modal);
+            
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
         }
 
         // Navigation
@@ -1634,11 +1942,33 @@
                 'dashboard': 'Dashboard',
                 'progress': 'Progress by Activity',
                 'schedule': 'Schedule Calendar',
+                'events': 'Events',
                 'deliverables': 'Deliverables',
+                'performance': 'ESO Performance',
                 'partners': 'Partner Overview',
+                'data-management': 'Data Management',
                 'reports': 'Reports'
             };
             document.getElementById('page-title').textContent = titles[page];
+
+            // Render page-specific content
+            if (page === 'dashboard') {
+                renderDashboard();
+            } else if (page === 'progress') {
+                renderProgressData();
+            } else if (page === 'schedule') {
+                renderScheduleView();
+            } else if (page === 'events') {
+                renderEvents();
+                populateESOFilter();
+            } else if (page === 'deliverables') {
+                renderDeliverables();
+                populateDeliverableFilters();
+            } else if (page === 'performance') {
+                renderPerformance();
+            } else if (page === 'partners') {
+                renderPartners();
+            }
         }
 
         function toggleSidebar() {
@@ -1660,6 +1990,7 @@
 
             renderPartnerProgress();
             renderStatusBreakdown(stats);
+            renderDeliverablesSummary();
         }
 
         function calculateStats() {
@@ -1739,6 +2070,78 @@
                 </div>
             `;
             document.getElementById('status-breakdown').innerHTML = html;
+        }
+
+        // Deliverables Dashboard Summary
+        function renderDeliverablesSummary() {
+            // Calculate deliverables stats
+            const stats = {
+                total: allDeliverables.length,
+                closed: 0,
+                inProgress: 0,
+                onHold: 0
+            };
+
+            allDeliverables.forEach(d => {
+                const status = (d['Status'] || '').trim().toLowerCase();
+                if (status === 'closed') stats.closed++;
+                else if (status === 'in progress') stats.inProgress++;
+                else if (status === 'on hold') stats.onHold++;
+            });
+
+            // Update summary cards - check if elements exist
+            const totalElement = document.getElementById('deliverables-total-count');
+            const closedElement = document.getElementById('deliverables-closed-count');
+            const progressElement = document.getElementById('deliverables-progress-count');
+            const holdElement = document.getElementById('deliverables-hold-count');
+
+            if (totalElement) totalElement.textContent = stats.total;
+            if (closedElement) closedElement.textContent = stats.closed;
+            if (progressElement) progressElement.textContent = stats.inProgress;
+            if (holdElement) holdElement.textContent = stats.onHold;
+
+            // Show recent deliverables (last 5)
+            const recentDeliverables = allDeliverables
+                .filter(d => d['Close out date'] && d['Close out date'] !== '')
+                .sort((a, b) => new Date(b['Close out date']) - new Date(a['Close out date']))
+                .slice(0, 5);
+
+            const recentDeliverablesContainer = document.getElementById('recent-deliverables');
+            
+            if (recentDeliverablesContainer) {
+                if (recentDeliverables.length === 0) {
+                    recentDeliverablesContainer.innerHTML = `
+                        <div style="text-align: center; color: #666; padding: 2rem;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📋</div>
+                            <p>No recent deliverables found</p>
+                        </div>
+                    `;
+                } else {
+                    recentDeliverablesContainer.innerHTML = recentDeliverables.map(d => {
+                        const status = (d['Status'] || '').trim();
+                        const statusClass = getStatusClass(status);
+                        const statusColor = status === 'Closed' ? '#28a745' : status === 'In Progress' ? '#ffc107' : status === 'On Hold' ? '#dc3545' : '#6c757d';
+                        
+                        return `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #eee;">
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 500; color: #333; margin-bottom: 0.25rem; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
+                                        ${d['Deliverables']}
+                                    </div>
+                                    <div style="font-size: 0.85rem; color: #666;">
+                                        ${d['Partner Name'] || d['Partner']} • ${formatDate(d['Close out date'])}
+                                    </div>
+                                </div>
+                                <div style="margin-left: 1rem;">
+                                    <span style="background: ${statusColor}; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: 500;">
+                                        ${status}
+                                    </span>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
         }
 
         // Progress by Activity
@@ -1888,10 +2291,10 @@
             document.getElementById('deliverables-progress').textContent = stats.inProgress;
             document.getElementById('deliverables-hold').textContent = stats.onHold;
 
-            // Group by partner
+            // Group by partner - use correct field name
             const byPartner = {};
             allDeliverables.forEach(d => {
-                const partner = d['Partner'];
+                const partner = d['Partner Name'] || d['Partner'] || 'Unknown Partner';
                 if (!byPartner[partner]) byPartner[partner] = [];
                 byPartner[partner].push(d);
             });
@@ -1900,7 +2303,7 @@
             Object.keys(byPartner).sort().forEach(partner => {
                 const deliverables = byPartner[partner];
                 html += `
-                    <div class="card">
+                    <div class="card" data-partner="${partner}">
                         <h2>${partner}</h2>
                         ${deliverables.map(d => renderDeliverableItem(d)).join('')}
                     </div>
@@ -2052,75 +2455,100 @@
 
         // Partners Overview
         function renderPartners() {
-            const partnerData = {};
+            // Calculate activity-based progress for each ESO
+            const partnerActivityData = {};
             
             allActivities.forEach(activity => {
                 const partner = activity['ESO NAME'];
-                if (!partnerData[partner]) {
-                    partnerData[partner] = {
+                if (!partnerActivityData[partner]) {
+                    partnerActivityData[partner] = {
                         total: 0,
-                        done: 0,
-                        ongoing: 0,
-                        notStarted: 0,
-                        pending: 0
+                        done: 0
                     };
                 }
                 
-                partnerData[partner].total++;
+                partnerActivityData[partner].total++;
                 const status = (activity['Status'] || '').trim();
-                if (status === 'Done') partnerData[partner].done++;
-                else if (status === 'Ongoing') partnerData[partner].ongoing++;
-                else if (status === 'Not Started') partnerData[partner].notStarted++;
-                else if (status === 'Pending') partnerData[partner].pending++;
+                if (status === 'Done') partnerActivityData[partner].done++;
             });
 
+            // Combine performance data with activity progress
             let html = '';
-            Object.keys(partnerData).sort().forEach(partner => {
-                const data = partnerData[partner];
-                const percent = Math.round((data.done / data.total) * 100);
-                
-                html += `
-                    <div class="partner-card">
-                        <div class="partner-card-header">
-                            <h3>${partner}</h3>
-                            <div class="partner-meta">
-                                <span>📋 ${data.total} activities</span>
-                                <span>✅ ${percent}% complete</span>
-                            </div>
-                        </div>
-                        <div class="partner-card-body">
-                            <div class="partner-stats">
-                                <div class="partner-stat-item">
-                                    <div class="number">${data.done}</div>
-                                    <div class="label">Done</div>
+            
+            if (performanceData && performanceData.length > 0) {
+                performanceData.forEach(data => {
+                    const esoName = data.eso;
+                    const activityData = partnerActivityData[esoName] || { total: 0, done: 0 };
+                    
+                    // Calculate overall progress percentage from activities
+                    const overallProgress = activityData.total > 0 ? 
+                        Math.round((activityData.done / activityData.total) * 100) : 0;
+                    
+                    // Find top performing category
+                    const categories = [
+                        { name: 'PWD', percent: data.pwd_percent || 0 },
+                        { name: 'Refugees', percent: data.refugees_percent || 0 },
+                        { name: 'MSMEs', percent: (data.msmes_achieved && data.msmes_target) ? 
+                            Math.round((data.msmes_achieved / data.msmes_target) * 100) : 0 }
+                    ];
+                    
+                    const topCategory = categories.reduce((prev, current) => 
+                        current.percent > prev.percent ? current : prev
+                    );
+                    
+                    // Determine status based on top category performance
+                    const status = topCategory.percent >= 80 ? 'Good' : 'Needs Attention';
+                    const statusClass = status === 'Good' ? 'badge-success' : 'badge-warning';
+                    
+                    html += `
+                        <tr>
+                            <td><strong>${esoName}</strong></td>
+                            <td>
+                                <div class="progress-cell">
+                                    <span class="progress-percent">${overallProgress}%</span><br>
+                                    <small class="progress-numbers">${activityData.done}/${activityData.total}</small>
                                 </div>
-                                <div class="partner-stat-item">
-                                    <div class="number">${data.ongoing}</div>
-                                    <div class="label">Ongoing</div>
+                            </td>
+                            <td>
+                                <div class="category-cell">
+                                    <span class="category-name">${topCategory.name}</span><br>
+                                    <small class="category-percent">${topCategory.percent.toFixed(1)}%</small>
                                 </div>
-                                <div class="partner-stat-item">
-                                    <div class="number">${data.notStarted}</div>
-                                    <div class="label">Not Started</div>
+                            </td>
+                            <td><span class="badge ${statusClass}">${status}</span></td>
+                        </tr>
+                    `;
+                });
+            } else {
+                // Fallback to activity-only data if no performance data
+                Object.keys(partnerActivityData).sort().forEach(partner => {
+                    const data = partnerActivityData[partner];
+                    const percent = Math.round((data.done / data.total) * 100);
+                    const status = percent >= 80 ? 'Good' : 'Needs Attention';
+                    const statusClass = status === 'Good' ? 'badge-success' : 'badge-warning';
+                    
+                    html += `
+                        <tr>
+                            <td><strong>${partner}</strong></td>
+                            <td>
+                                <div class="progress-cell">
+                                    <span class="progress-percent">${percent}%</span><br>
+                                    <small class="progress-numbers">${data.done}/${data.total}</small>
                                 </div>
-                                <div class="partner-stat-item">
-                                    <div class="number">${data.pending}</div>
-                                    <div class="label">Pending</div>
+                            </td>
+                            <td>
+                                <div class="category-cell">
+                                    <span class="category-name">Activities</span><br>
+                                    <small class="category-percent">${percent}%</small>
                                 </div>
-                            </div>
-                            <div class="partner-progress-bar">
-                                <div class="partner-progress-fill" style="width: ${percent}%"></div>
-                            </div>
-                            <div class="partner-status-grid">
-                                <span class="badge badge-success">✅ ${data.done} Completed</span>
-                                <span class="badge badge-primary">🔄 ${data.ongoing} Active</span>
-                                <span class="badge badge-warning">⏳ ${data.notStarted} Pending</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
+                            </td>
+                            <td><span class="badge ${statusClass}">${status}</span></td>
+                        </tr>
+                    `;
+                });
+            }
 
-            document.getElementById('partner-cards').innerHTML = html;
+            document.getElementById('partners-table-body').innerHTML = html;
         }
 
         // Filters
@@ -2174,22 +2602,37 @@
 
         function filterDeliverables() {
             const search = document.getElementById('deliverables-search').value.toLowerCase();
-            const partner = document.getElementById('deliverable-partner-filter').value;
-            const status = document.getElementById('deliverable-status-filter').value;
+            const partnerFilter = document.getElementById('deliverable-partner-filter').value;
+            const statusFilter = document.getElementById('deliverable-status-filter').value;
 
-            const items = document.querySelectorAll('.deliverable-item');
+            // Get all partner cards
+            const cards = document.querySelectorAll('#deliverables-content .card');
             
-            items.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                const matchesSearch = text.includes(search);
-                const matchesStatus = !status || text.includes(status.toLowerCase());
+            cards.forEach(card => {
+                const partner = card.getAttribute('data-partner') || '';
+                const partnerMatches = !partnerFilter || partner === partnerFilter;
                 
-                // Get partner from parent card
-                const card = item.closest('.card');
-                const cardPartner = card ? card.querySelector('h2').textContent : '';
-                const matchesPartner = !partner || cardPartner === partner;
-
-                item.style.display = (matchesSearch && matchesPartner && matchesStatus) ? 'block' : 'none';
+                // Check deliverable items within this card
+                const deliverableItems = card.querySelectorAll('.deliverable-item');
+                let hasVisibleItems = false;
+                
+                deliverableItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    const searchMatches = !search || text.includes(search);
+                    
+                    // Check status match - look for status badge
+                    const statusBadge = item.querySelector('.status-badge');
+                    const itemStatus = statusBadge ? statusBadge.textContent.trim() : '';
+                    const statusMatches = !statusFilter || itemStatus === statusFilter;
+                    
+                    const shouldShow = searchMatches && statusMatches && partnerMatches;
+                    item.style.display = shouldShow ? 'block' : 'none';
+                    
+                    if (shouldShow) hasVisibleItems = true;
+                });
+                
+                // Hide the entire card if no items are visible and we're filtering by partner
+                card.style.display = (partnerMatches && hasVisibleItems) ? 'block' : 'none';
             });
         }
 
@@ -2300,8 +2743,819 @@
             window.URL.revokeObjectURL(url);
         }
 
+        // Performance Data Upload Functions
+        // Use existing performanceData array that's already defined above
+
+        // Convert existing data format to new format and initialize dashboard
+        function initializeDashboard() {
+            if (performanceData && performanceData.length > 0) {
+                // Convert from existing format to new format if needed
+                const convertedData = performanceData.map(data => ({
+                    eso: data.eso,
+                    outreachTarget: data.outreach_target || 0,
+                    outreachAchieved: data.outreach_achieved || 0,
+                    youthTarget: data.youth_target || 0,
+                    youthAchieved: data.youth_achieved || 0,
+                    pwdTarget: data.pwd_target || 0,
+                    pwdAchieved: data.pwd_achieved || 0,
+                    refugeesTarget: data.refugees_target || 0,
+                    refugeesAchieved: data.refugees_achieved || 0,
+                    msmesTarget: data.msmes_target || 0,
+                    msmesAchieved: data.msmes_achieved || 0
+                }));
+                
+                // Update the performanceData array with converted format
+                performanceData = convertedData;
+                
+                // Update all dashboard displays
+                updateDashboardStats();
+            }
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const csv = e.target.result;
+                    parseCSV(csv);
+                    displaySuccessMessage();
+                    displayPerformanceData();
+                    updateDashboardStats();
+                } catch (error) {
+                    alert('Error reading file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseCSV(csv) {
+            const lines = csv.split('\n').filter(line => line.trim());
+            const headers = lines[0].split(',').map(h => h.trim());
+            
+            // Validate headers
+            const expectedHeaders = ['ESO', 'Outreach Target', 'Outreach Achieved', 'Youth Target', 'Youth Achieved', 'PWD Target', 'PWD Achieved', 'Refugees Target', 'Refugees Achieved', 'MSMEs Target', 'MSMEs Achieved'];
+            
+            performanceData = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',').map(v => v.trim());
+                if (values.length >= 11) {
+                    performanceData.push({
+                        eso: values[0],
+                        outreachTarget: parseInt(values[1]) || 0,
+                        outreachAchieved: parseInt(values[2]) || 0,
+                        youthTarget: parseInt(values[3]) || 0,
+                        youthAchieved: parseInt(values[4]) || 0,
+                        pwdTarget: parseInt(values[5]) || 0,
+                        pwdAchieved: parseInt(values[6]) || 0,
+                        refugeesTarget: parseInt(values[7]) || 0,
+                        refugeesAchieved: parseInt(values[8]) || 0,
+                        msmesTarget: parseInt(values[9]) || 0,
+                        msmesAchieved: parseInt(values[10]) || 0
+                    });
+                }
+            }
+        }
+
+        function displaySuccessMessage() {
+            const timestamp = new Date().toLocaleString();
+            document.getElementById('upload-timestamp').textContent = `Uploaded on ${timestamp}`;
+            document.getElementById('performance-data-container').style.display = 'block';
+            document.getElementById('upload-instructions').style.display = 'none';
+        }
+
+        function displayPerformanceData() {
+            const tbody = document.getElementById('performance-table-body');
+            tbody.innerHTML = '';
+
+            performanceData.forEach(data => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid #dee2e6';
+                
+                const outreachPerc = ((data.outreachAchieved / data.outreachTarget) * 100).toFixed(1);
+                const youthPerc = ((data.youthAchieved / data.youthTarget) * 100).toFixed(1);
+                const pwdPerc = ((data.pwdAchieved / data.pwdTarget) * 100).toFixed(1);
+                const refugeesPerc = ((data.refugeesAchieved / data.refugeesTarget) * 100).toFixed(1);
+                const msmesPerc = ((data.msmesAchieved / data.msmesTarget) * 100).toFixed(1);
+
+                row.innerHTML = `
+                    <td style="padding: 0.75rem; font-weight: 500;">${data.eso}</td>
+                    <td style="padding: 0.75rem; text-align: center;">
+                        <div style="font-weight: 600; color: ${outreachPerc >= 100 ? '#28a745' : outreachPerc >= 80 ? '#ffc107' : '#dc3545'};">${data.outreachAchieved}/${data.outreachTarget}</div>
+                        <div style="font-size: 0.8rem; color: #666;">${outreachPerc}%</div>
+                    </td>
+                    <td style="padding: 0.75rem; text-align: center;">
+                        <div style="font-weight: 600; color: ${youthPerc >= 100 ? '#28a745' : youthPerc >= 80 ? '#ffc107' : '#dc3545'};">${data.youthAchieved}/${data.youthTarget}</div>
+                        <div style="font-size: 0.8rem; color: #666;">${youthPerc}%</div>
+                    </td>
+                    <td style="padding: 0.75rem; text-align: center;">
+                        <div style="font-weight: 600; color: ${pwdPerc >= 100 ? '#28a745' : pwdPerc >= 80 ? '#ffc107' : '#dc3545'};">${data.pwdAchieved}/${data.pwdTarget}</div>
+                        <div style="font-size: 0.8rem; color: #666;">${pwdPerc}%</div>
+                    </td>
+                    <td style="padding: 0.75rem; text-align: center;">
+                        <div style="font-weight: 600; color: ${refugeesPerc >= 100 ? '#28a745' : refugeesPerc >= 80 ? '#ffc107' : '#dc3545'};">${data.refugeesAchieved}/${data.refugeesTarget}</div>
+                        <div style="font-size: 0.8rem; color: #666;">${refugeesPerc}%</div>
+                    </td>
+                    <td style="padding: 0.75rem; text-align: center;">
+                        <div style="font-weight: 600; color: ${msmesPerc >= 100 ? '#28a745' : msmesPerc >= 80 ? '#ffc107' : '#dc3545'};">${data.msmesAchieved}/${data.msmesTarget}</div>
+                        <div style="font-size: 0.8rem; color: #666;">${msmesPerc}%</div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            displayPerformanceSummary();
+        }
+
+        function displayPerformanceSummary() {
+            const summaryDiv = document.getElementById('performance-summary');
+            
+            // Calculate totals
+            const totals = performanceData.reduce((acc, data) => {
+                acc.outreachTarget += data.outreachTarget;
+                acc.outreachAchieved += data.outreachAchieved;
+                acc.youthTarget += data.youthTarget;
+                acc.youthAchieved += data.youthAchieved;
+                acc.pwdTarget += data.pwdTarget;
+                acc.pwdAchieved += data.pwdAchieved;
+                acc.refugeesTarget += data.refugeesTarget;
+                acc.refugeesAchieved += data.refugeesAchieved;
+                acc.msmesTarget += data.msmesTarget;
+                acc.msmesAchieved += data.msmesAchieved;
+                return acc;
+            }, {
+                outreachTarget: 0, outreachAchieved: 0,
+                youthTarget: 0, youthAchieved: 0,
+                pwdTarget: 0, pwdAchieved: 0,
+                refugeesTarget: 0, refugeesAchieved: 0,
+                msmesTarget: 0, msmesAchieved: 0
+            });
+
+            const categories = [
+                { name: 'Outreach', target: totals.outreachTarget, achieved: totals.outreachAchieved, icon: '🎯' },
+                { name: 'Youth', target: totals.youthTarget, achieved: totals.youthAchieved, icon: '👥' },
+                { name: 'PWD', target: totals.pwdTarget, achieved: totals.pwdAchieved, icon: '♿' },
+                { name: 'Refugees', target: totals.refugeesTarget, achieved: totals.refugeesAchieved, icon: '🏡' },
+                { name: 'MSMEs', target: totals.msmesTarget, achieved: totals.msmesAchieved, icon: '🏢' }
+            ];
+
+            summaryDiv.innerHTML = categories.map(cat => {
+                const percentage = cat.target > 0 ? ((cat.achieved / cat.target) * 100).toFixed(1) : 0;
+                const color = percentage >= 100 ? '#28a745' : percentage >= 80 ? '#ffc107' : '#dc3545';
+                
+                return `
+                    <div style="background: white; border: 1px solid #dee2e6; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">${cat.icon}</div>
+                        <h4 style="margin-bottom: 0.5rem; color: #333;">${cat.name}</h4>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: ${color}; margin-bottom: 0.25rem;">
+                            ${cat.achieved.toLocaleString()}
+                        </div>
+                        <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">
+                            of ${cat.target.toLocaleString()} target
+                        </div>
+                        <div style="font-size: 0.9rem; font-weight: 500; color: ${color};">
+                            ${percentage}% achieved
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateDashboardStats() {
+            if (performanceData.length === 0) {
+                document.getElementById('performance-dashboard').style.display = 'none';
+                document.getElementById('no-performance-data').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('performance-dashboard').style.display = 'block';
+            document.getElementById('no-performance-data').style.display = 'none';
+
+            // Update last updated timestamp
+            document.getElementById('last-updated').textContent = `Last updated: ${new Date().toLocaleString()}`;
+
+            // Update stat cards with performance data
+            const totalESOs = performanceData.length;
+            document.getElementById('stat-total').textContent = totalESOs;
+
+            // Calculate overall performance
+            const totalTargets = performanceData.reduce((sum, data) => 
+                sum + (data.outreach_target || 0) + (data.youth_target || 0) + (data.pwd_target || 0) + (data.refugees_target || 0) + (data.msmes_target || 0), 0);
+            const totalAchieved = performanceData.reduce((sum, data) => 
+                sum + (data.outreach_achieved || 0) + (data.youth_achieved || 0) + (data.pwd_achieved || 0) + (data.refugees_achieved || 0) + (data.msmes_achieved || 0), 0);
+
+            const completionRate = totalTargets > 0 ? ((totalAchieved / totalTargets) * 100).toFixed(1) : 0;
+            
+            document.getElementById('stat-done').textContent = Math.round(completionRate) + '%';
+            document.getElementById('completion-percent').textContent = completionRate + '%';
+            document.getElementById('completion-bar').style.width = completionRate + '%';
+
+            // Update dashboard performance summary
+            updateDashboardPerformanceSummary();
+            updateDashboardPerformanceOverview();
+        }
+
+        function updateDashboardPerformanceSummary() {
+            const summaryDiv = document.getElementById('performance-summary-dashboard');
+            
+            // Calculate totals
+            const totals = performanceData.reduce((acc, data) => {
+                acc.outreachTarget += data.outreachTarget;
+                acc.outreachAchieved += data.outreachAchieved;
+                acc.youthTarget += data.youthTarget;
+                acc.youthAchieved += data.youthAchieved;
+                acc.pwdTarget += data.pwdTarget;
+                acc.pwdAchieved += data.pwdAchieved;
+                acc.refugeesTarget += data.refugeesTarget;
+                acc.refugeesAchieved += data.refugeesAchieved;
+                acc.msmesTarget += data.msmesTarget;
+                acc.msmesAchieved += data.msmesAchieved;
+                return acc;
+            }, {
+                outreachTarget: 0, outreachAchieved: 0,
+                youthTarget: 0, youthAchieved: 0,
+                pwdTarget: 0, pwdAchieved: 0,
+                refugeesTarget: 0, refugeesAchieved: 0,
+                msmesTarget: 0, msmesAchieved: 0
+            });
+
+            const categories = [
+                { name: 'Outreach', target: totals.outreachTarget, achieved: totals.outreachAchieved, icon: '🎯' },
+                { name: 'Youth', target: totals.youthTarget, achieved: totals.youthAchieved, icon: '👥' },
+                { name: 'PWD', target: totals.pwdTarget, achieved: totals.pwdAchieved, icon: '♿' },
+                { name: 'Refugees', target: totals.refugeesTarget, achieved: totals.refugeesAchieved, icon: '🏡' },
+                { name: 'MSMEs', target: totals.msmesTarget, achieved: totals.msmesAchieved, icon: '🏢' }
+            ];
+
+            summaryDiv.innerHTML = categories.map(cat => {
+                const percentage = cat.target > 0 ? ((cat.achieved / cat.target) * 100).toFixed(1) : 0;
+                const color = percentage >= 100 ? '#28a745' : percentage >= 80 ? '#ffc107' : '#dc3545';
+                
+                return `
+                    <div style="background: white; border: 1px solid #dee2e6; border-radius: 8px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">${cat.icon}</div>
+                        <h4 style="margin-bottom: 0.5rem; color: #333;">${cat.name}</h4>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: ${color}; margin-bottom: 0.25rem;">
+                            ${cat.achieved.toLocaleString()}
+                        </div>
+                        <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">
+                            of ${cat.target.toLocaleString()} target
+                        </div>
+                        <div style="font-size: 0.9rem; font-weight: 500; color: ${color};">
+                            ${percentage}% achieved
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateDashboardPerformanceOverview() {
+            const tbody = document.getElementById('performance-overview-body');
+            tbody.innerHTML = '';
+
+            performanceData.forEach(data => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid #dee2e6';
+                
+                // Calculate overall progress for this ESO
+                const totalTargets = data.outreachTarget + data.youthTarget + data.pwdTarget + data.refugeesTarget + data.msmesTarget;
+                const totalAchieved = data.outreachAchieved + data.youthAchieved + data.pwdAchieved + data.refugeesAchieved + data.msmesAchieved;
+                const overallPerc = totalTargets > 0 ? ((totalAchieved / totalTargets) * 100).toFixed(1) : 0;
+
+                // Find top performing category
+                const categories = [
+                    { name: 'Outreach', perc: ((data.outreachAchieved / data.outreachTarget) * 100) || 0 },
+                    { name: 'Youth', perc: ((data.youthAchieved / data.youthTarget) * 100) || 0 },
+                    { name: 'PWD', perc: ((data.pwdAchieved / data.pwdTarget) * 100) || 0 },
+                    { name: 'Refugees', perc: ((data.refugeesAchieved / data.refugeesTarget) * 100) || 0 },
+                    { name: 'MSMEs', perc: ((data.msmesAchieved / data.msmesTarget) * 100) || 0 }
+                ];
+                const topCategory = categories.reduce((max, cat) => cat.perc > max.perc ? cat : max);
+
+                const statusColor = overallPerc >= 80 ? '#28a745' : overallPerc >= 50 ? '#ffc107' : '#dc3545';
+                const statusText = overallPerc >= 80 ? 'Excellent' : overallPerc >= 50 ? 'Good' : 'Needs Attention';
+
+                row.innerHTML = `
+                    <td style="padding: 1rem; font-weight: 500;">${data.eso}</td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <div style="font-weight: 600; color: ${statusColor}; font-size: 1.1rem;">${overallPerc}%</div>
+                        <div style="font-size: 0.8rem; color: #666;">${totalAchieved.toLocaleString()}/${totalTargets.toLocaleString()}</div>
+                    </td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <div style="font-weight: 500;">${topCategory.name}</div>
+                        <div style="font-size: 0.8rem; color: #666;">${topCategory.perc.toFixed(1)}%</div>
+                    </td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <span style="background: ${statusColor}; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 500;">
+                            ${statusText}
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function downloadTemplate() {
+            const template = `ESO,Outreach Target,Outreach Achieved,Youth Target,Youth Achieved,PWD Target,PWD Achieved,Refugees Target,Refugees Achieved,MSMEs Target,MSMEs Achieved
+Excel Hort,3000,1522,2500,192,150,84,1500,672,500,2
+MUBS EIIC,3000,2049,2500,0,150,108,90,8,500,4
+Your ESO Name,3000,0,2500,0,150,0,1500,0,500,0`;
+
+            const blob = new Blob([template], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ESO_Performance_Template.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Events Page Functions
+        function filterEvents() {
+            const searchTerm = document.getElementById('events-search').value.toLowerCase();
+            const esoFilter = document.getElementById('events-eso-filter').value;
+            const monthFilter = document.getElementById('events-month-filter').value;
+            const statusFilter = document.getElementById('events-status-filter').value;
+            const workstreamFilter = document.getElementById('workstream-filter').value;
+            const eventsGrid = document.getElementById('events-grid');
+            
+            if (!eventsGrid) return;
+            
+            // Get events from schedule activities that have specific event-like characteristics
+            let events = allActivities.filter(activity => {
+                // Consider activities as events if they have specific keywords or are milestone activities
+                const taskLower = (activity['Tasks'] || '').toLowerCase();
+                const isEvent = taskLower && (
+                    // Original event keywords
+                    taskLower.includes('event') ||
+                    taskLower.includes('workshop') ||
+                    taskLower.includes('training') ||
+                    taskLower.includes('meeting') ||
+                    taskLower.includes('launch') ||
+                    taskLower.includes('conference') ||
+                    taskLower.includes('seminar') ||
+                    taskLower.includes('presentation') ||
+                    taskLower.includes('session') ||
+                    // Milestone and project activities
+                    taskLower.includes('kick-off') ||
+                    taskLower.includes('kickoff') ||
+                    taskLower.includes('recruitment') ||
+                    taskLower.includes('engagement') ||
+                    taskLower.includes('mobilization') ||
+                    taskLower.includes('onboarding') ||
+                    taskLower.includes('assessment') ||
+                    taskLower.includes('profiling') ||
+                    taskLower.includes('tot') || // Training of Trainers
+                    taskLower.includes('course') ||
+                    taskLower.includes('handholding') ||
+                    taskLower.includes('selection') ||
+                    taskLower.includes('baseline') ||
+                    taskLower.includes('evaluation') ||
+                    taskLower.includes('review') ||
+                    taskLower.includes('monitoring') ||
+                    taskLower.includes('report') ||
+                    taskLower.includes('startup') ||
+                    taskLower.includes('incubation') ||
+                    taskLower.includes('mentoring') ||
+                    taskLower.includes('coaching') ||
+                    taskLower.includes('due diligence')
+                );
+                
+                return isEvent;
+            });
+
+            // Apply search filter
+            if (searchTerm) {
+                events = events.filter(event => 
+                    (event['Tasks'] && event['Tasks'].toLowerCase().includes(searchTerm)) ||
+                    (event['ESO NAME'] && event['ESO NAME'].toLowerCase().includes(searchTerm)) ||
+                    (event['District/Location'] && event['District/Location'].toLowerCase().includes(searchTerm)) ||
+                    (event['Assigned To'] && event['Assigned To'].toLowerCase().includes(searchTerm))
+                );
+            }
+
+            // Apply ESO filter
+            if (esoFilter) {
+                events = events.filter(event => 
+                    event['ESO NAME'] === esoFilter
+                );
+            }
+
+            // Apply month filter
+            if (monthFilter) {
+                events = events.filter(event => {
+                    const startDate = new Date(event['Start']);
+                    const eventMonth = String(startDate.getMonth() + 1).padStart(2, '0');
+                    return eventMonth === monthFilter;
+                });
+            }
+
+            // Apply status filter
+            if (statusFilter) {
+                events = events.filter(event => 
+                    event['Status'] === statusFilter
+                );
+            }
+
+            // Apply workstream filter (map ESO names to workstreams for now)
+            if (workstreamFilter) {
+                events = events.filter(event => {
+                    const esoName = event['ESO NAME'] || '';
+                    // Basic mapping - you can enhance this based on your data
+                    if (workstreamFilter === 'Incubation and Acceleration') {
+                        return esoName.includes('EIIC') || esoName.includes('Incub');
+                    } else if (workstreamFilter === 'Communications') {
+                        return esoName.includes('Comm') || esoName.includes('Media');
+                    } else if (workstreamFilter === 'Learning Workstream') {
+                        return esoName.includes('Learn') || esoName.includes('Train') || esoName.includes('Education');
+                    }
+                    return true;
+                });
+            }
+
+            displayEvents(events);
+        }
+
+        function displayEvents(events) {
+            const eventsGrid = document.getElementById('events-grid');
+            
+            if (events.length === 0) {
+                eventsGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📅</div>
+                        <h3 style="margin-bottom: 1rem;">No Events Found</h3>
+                        <p>No events match your current search and filter criteria.<br>Try adjusting your filters or search terms.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            eventsGrid.innerHTML = events.map(event => {
+                const startDate = new Date(event['Start']);
+                const endDate = new Date(event['End']);
+                const isOngoing = event['Status'] === 'Ongoing';
+                const isCompleted = event['Status'] === 'Done';
+                const isPending = event['Status'] === 'Not Started';
+                
+                const statusColor = isCompleted ? '#28a745' : isOngoing ? '#ffc107' : isPending ? '#6c757d' : '#dc3545';
+                const statusIcon = isCompleted ? '✅' : isOngoing ? '🔄' : isPending ? '⏳' : '❌';
+                
+                const formattedStartDate = startDate.toLocaleDateString();
+                const formattedEndDate = endDate.toLocaleDateString();
+                const duration = event['Days'] ? `${event['Days']} days` : '';
+
+                return `
+                    <div class="event-card" style="background: white; border: 1px solid #dee2e6; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; height: fit-content;" 
+                         onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'"
+                         onclick="showEventDetails('${escapeHtml(event['ESO NAME'])}', '${escapeHtml(event['Tasks'])}', '${event['Start']}')">
+                        
+                        <!-- Status Badge -->
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <span style="background: ${statusColor}; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem;">
+                                ${statusIcon} ${event['Status']}
+                            </span>
+                            <div style="color: #6c757d; font-size: 0.8rem; text-align: right;">
+                                ${duration}
+                            </div>
+                        </div>
+
+                        <!-- Event Title -->
+                        <h4 style="margin-bottom: 0.75rem; color: #333; font-size: 1.1rem; line-height: 1.3; min-height: 2.6rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            ${event['Tasks']}
+                        </h4>
+
+                        <!-- ESO Organization -->
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; color: #4472C4; font-weight: 500;">
+                            <span style="font-size: 0.9rem;">🏢</span>
+                            <span style="font-size: 0.9rem;">${event['ESO NAME']}</span>
+                        </div>
+
+                        <!-- Date Range -->
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; color: #666;">
+                            <span style="font-size: 0.9rem;">📅</span>
+                            <span style="font-size: 0.9rem;">
+                                ${formattedStartDate}${formattedStartDate !== formattedEndDate ? ` - ${formattedEndDate}` : ''}
+                            </span>
+                        </div>
+
+                        <!-- Location -->
+                        ${event['District/Location'] ? `
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; color: #666;">
+                                <span style="font-size: 0.9rem;">📍</span>
+                                <span style="font-size: 0.9rem;">${event['District/Location']}</span>
+                            </div>
+                        ` : ''}
+
+                        <!-- Assigned To -->
+                        ${event['Assigned To'] ? `
+                            <div style="display: flex; align-items: center; gap: 0.5rem; color: #666;">
+                                <span style="font-size: 0.9rem;">👤</span>
+                                <span style="font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${event['Assigned To']}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showEventDetails(esoName, tasks, startDate) {
+            const event = allActivities.find(a => 
+                a['ESO NAME'] === esoName && 
+                a['Tasks'] === tasks && 
+                a['Start'] === startDate
+            );
+
+            if (!event) return;
+
+            const startDate_formatted = new Date(event['Start']).toLocaleDateString('en-US', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+            const endDate_formatted = new Date(event['End']).toLocaleDateString('en-US', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+
+            const modalContent = `
+                <div style="max-width: 600px;">
+                    <h2 style="margin-bottom: 1.5rem; color: #333; display: flex; align-items: center; gap: 0.75rem;">
+                        🎯 Event Details
+                    </h2>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <h3 style="margin-bottom: 0.75rem; color: #4472C4;">${event['Tasks']}</h3>
+                        <p style="color: #666; margin-bottom: 0.5rem;"><strong>Organization:</strong> ${event['ESO NAME']}</p>
+                        <p style="color: #666; margin-bottom: 0.5rem;"><strong>Status:</strong> ${event['Status']}</p>
+                        ${event['District/Location'] ? `<p style="color: #666; margin-bottom: 0.5rem;"><strong>Location:</strong> ${event['District/Location']}</p>` : ''}
+                        ${event['Assigned To'] ? `<p style="color: #666; margin-bottom: 0.5rem;"><strong>Assigned To:</strong> ${event['Assigned To']}</p>` : ''}
+                    </div>
+
+                    <div style="background: #fff3cd; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+                        <h4 style="margin-bottom: 1rem; color: #856404;">📅 Schedule Information</h4>
+                        <p style="margin-bottom: 0.5rem; color: #856404;"><strong>Start Date:</strong> ${startDate_formatted}</p>
+                        <p style="margin-bottom: 0.5rem; color: #856404;"><strong>End Date:</strong> ${endDate_formatted}</p>
+                        ${event['Days'] ? `<p style="margin-bottom: 0.5rem; color: #856404;"><strong>Duration:</strong> ${event['Days']} days</p>` : ''}
+                    </div>
+
+                    ${event['Deliverable'] ? `
+                        <div style="background: #d1ecf1; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #bee5eb; margin-top: 1rem;">
+                            <h4 style="margin-bottom: 0.75rem; color: #0c5460;">📋 Expected Deliverable</h4>
+                            <p style="color: #0c5460; line-height: 1.5;">${event['Deliverable']}</p>
+                        </div>
+                    ` : ''}
+
+                    ${event['contact'] ? `
+                        <div style="background: #d4edda; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #c3e6cb; margin-top: 1rem;">
+                            <h4 style="margin-bottom: 0.75rem; color: #155724;">📞 Contact Information</h4>
+                            <div style="color: #155724; line-height: 1.5; white-space: pre-line;">${event['contact']}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            showModal(modalContent);
+        }
+
+        function addNewEvent() {
+            alert('📅 Event creation feature coming soon!\n\nEvents are currently managed through the Schedule Calendar.\nTo add a new event, go to Schedule Calendar and add an activity with event-related keywords like:\n• Training\n• Workshop\n• Meeting\n• Conference\n• Launch\n• Seminar');
+        }
+
+        // Initialize events page when navigated to
+        function renderEvents() {
+            populateEventFilters();
+            filterEvents();
+        }
+
+        function populateEventFilters() {
+            // Populate ESO filter with unique ESO names from activities that are events
+            const eventActivities = allActivities.filter(activity => {
+                const taskLower = (activity['Tasks'] || '').toLowerCase();
+                return taskLower && (
+                    // Original event keywords
+                    taskLower.includes('event') ||
+                    taskLower.includes('workshop') ||
+                    taskLower.includes('training') ||
+                    taskLower.includes('meeting') ||
+                    taskLower.includes('launch') ||
+                    taskLower.includes('conference') ||
+                    taskLower.includes('seminar') ||
+                    taskLower.includes('presentation') ||
+                    taskLower.includes('session') ||
+                    // Milestone and project activities
+                    taskLower.includes('kick-off') ||
+                    taskLower.includes('kickoff') ||
+                    taskLower.includes('recruitment') ||
+                    taskLower.includes('engagement') ||
+                    taskLower.includes('mobilization') ||
+                    taskLower.includes('onboarding') ||
+                    taskLower.includes('assessment') ||
+                    taskLower.includes('profiling') ||
+                    taskLower.includes('tot') || // Training of Trainers
+                    taskLower.includes('course') ||
+                    taskLower.includes('handholding') ||
+                    taskLower.includes('selection') ||
+                    taskLower.includes('baseline') ||
+                    taskLower.includes('evaluation') ||
+                    taskLower.includes('review') ||
+                    taskLower.includes('monitoring') ||
+                    taskLower.includes('report') ||
+                    taskLower.includes('startup') ||
+                    taskLower.includes('incubation') ||
+                    taskLower.includes('mentoring') ||
+                    taskLower.includes('coaching') ||
+                    taskLower.includes('due diligence')
+                );
+            });
+            
+            const uniqueESOs = [...new Set(eventActivities.map(a => a['ESO NAME']).filter(Boolean))].sort();
+            const esoFilter = document.getElementById('events-eso-filter');
+            
+            // Clear existing options except the first one
+            while (esoFilter.children.length > 1) {
+                esoFilter.removeChild(esoFilter.lastChild);
+            }
+            
+            uniqueESOs.forEach(eso => {
+                const option = document.createElement('option');
+                option.value = eso;
+                option.textContent = eso;
+                esoFilter.appendChild(option);
+            });
+        }
+
+        function populateESOFilter() {
+            const eventActivities = allActivities.filter(activity => {
+                const taskLower = activity.Tasks ? activity.Tasks.toLowerCase() : '';
+                return (
+                    taskLower.includes('event') ||
+                    taskLower.includes('meeting') ||
+                    taskLower.includes('workshop') ||
+                    taskLower.includes('training') ||
+                    taskLower.includes('kick-off') ||
+                    taskLower.includes('kickoff') ||
+                    taskLower.includes('recruitment') ||
+                    taskLower.includes('engagement') ||
+                    taskLower.includes('mobilization') ||
+                    taskLower.includes('assessment') ||
+                    taskLower.includes('presentation') ||
+                    taskLower.includes('conference') ||
+                    taskLower.includes('seminar') ||
+                    taskLower.includes('forum') ||
+                    taskLower.includes('bootcamp') ||
+                    taskLower.includes('boot camp') ||
+                    taskLower.includes('onboarding') ||
+                    taskLower.includes('orientation') ||
+                    taskLower.includes('mentoring') ||
+                    taskLower.includes('coaching') ||
+                    taskLower.includes('due diligence')
+                );
+            });
+            
+            const uniqueESOs = [...new Set(eventActivities.map(a => a['ESO NAME']).filter(Boolean))].sort();
+            const esoFilter = document.getElementById('events-eso-filter');
+            
+            // Clear existing options except the first one
+            while (esoFilter.children.length > 1) {
+                esoFilter.removeChild(esoFilter.lastChild);
+            }
+            
+            uniqueESOs.forEach(eso => {
+                const option = document.createElement('option');
+                option.value = eso;
+                option.textContent = eso;
+                esoFilter.appendChild(option);
+            });
+        }
+
+        function populateDeliverableFilters() {
+            // Populate partner filter
+            const uniquePartners = [...new Set(allDeliverables.map(d => d['Partner Name']).filter(Boolean))].sort();
+            const partnerFilter = document.getElementById('deliverable-partner-filter');
+            
+            // Clear existing options except the first one
+            while (partnerFilter.children.length > 1) {
+                partnerFilter.removeChild(partnerFilter.lastChild);
+            }
+            
+            uniquePartners.forEach(partner => {
+                const option = document.createElement('option');
+                option.value = partner;
+                option.textContent = partner;
+                partnerFilter.appendChild(option);
+            });
+        }
+
         function showNotifications() {
             alert('📬 Notification system coming soon!');
+        }
+
+        // Update activity statuses based on criteria
+        function updateActivityStatuses() {
+            let updatedCount = 0;
+            let debugInfo = [];
+            
+            allActivities.forEach((activity, index) => {
+                const esoName = activity['ESO NAME'] || '';
+                const endDate = activity['End'];
+                const currentStatus = activity['Status'];
+                
+                // Skip if no end date
+                if (!endDate || endDate === 'Invalid Date' || endDate === '' || endDate === null) {
+                    debugInfo.push(`Skipped ${esoName}: No valid end date`);
+                    return;
+                }
+                
+                // Parse end date - handle multiple formats
+                let parsedEndDate;
+                
+                // Handle format: "2025-09-12 00:00:00"
+                if (typeof endDate === 'string' && endDate.includes('-') && endDate.includes(':')) {
+                    parsedEndDate = new Date(endDate.split(' ')[0]);
+                }
+                // Handle format: "13/9/2025" or "9/13/2025"
+                else if (typeof endDate === 'string' && endDate.includes('/')) {
+                    const parts = endDate.split('/');
+                    if (parts.length === 3) {
+                        // Try day/month/year first, then month/day/year
+                        let day = parseInt(parts[0]);
+                        let month = parseInt(parts[1]) - 1; // JavaScript months are 0-indexed
+                        let year = parseInt(parts[2]);
+                        
+                        // If day > 12, assume format is day/month/year
+                        if (day > 12) {
+                            parsedEndDate = new Date(year, month, day);
+                        }
+                        // Otherwise try both formats and pick the valid one
+                        else {
+                            parsedEndDate = new Date(year, month, day);
+                            // If that creates an invalid date, try month/day/year
+                            if (isNaN(parsedEndDate)) {
+                                parsedEndDate = new Date(year, day - 1, month + 1);
+                            }
+                        }
+                    }
+                }
+                // Handle single date formats like "1/10/2025"
+                else if (typeof endDate === 'string' && endDate.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
+                    parsedEndDate = new Date(endDate);
+                }
+                // Try direct parsing for other formats
+                else {
+                    parsedEndDate = new Date(endDate);
+                }
+                
+                // Skip if date parsing failed
+                if (isNaN(parsedEndDate) || parsedEndDate.getFullYear() < 2025) {
+                    debugInfo.push(`Skipped ${esoName}: Invalid parsed date from "${endDate}"`);
+                    return;
+                }
+                
+                let newStatus = '';
+                const sept2025 = new Date(2025, 8, 30); // September 30, 2025 (month is 0-indexed)
+                const dec2025 = new Date(2025, 11, 31);  // December 31, 2025
+                
+                // Finding XY and MUBS activities ending by September 2025
+                if ((esoName.toLowerCase().includes('finding xy') || 
+                     esoName.toLowerCase().includes('mubs') || 
+                     esoName.toLowerCase().includes('mubs-eiic')) && 
+                    parsedEndDate <= sept2025) {
+                    newStatus = 'Done';
+                    debugInfo.push(`${esoName.substring(0, 30)}... (${endDate}) → Done (MUBS/FindingXY Sept rule)`);
+                }
+                // All other activities ending by December 2025
+                else if (parsedEndDate <= dec2025) {
+                    newStatus = 'Done';
+                    debugInfo.push(`${esoName.substring(0, 30)}... (${endDate}) → Done (Dec rule)`);
+                }
+                // Everything else (future dates)
+                else {
+                    newStatus = 'In Progress';
+                    debugInfo.push(`${esoName.substring(0, 30)}... (${endDate}) → In Progress (future rule)`);
+                }
+                
+                // Update if status changed and not already the desired status
+                if (currentStatus !== newStatus && 
+                    currentStatus !== 'Done' && // Don't change already completed items
+                    newStatus !== '') {
+                    activity['Status'] = newStatus;
+                    updatedCount++;
+                    debugInfo.push(`✅ UPDATED: ${esoName.substring(0, 40)}... from "${currentStatus}" to "${newStatus}"`);
+                } else if (currentStatus === newStatus) {
+                    debugInfo.push(`No change needed: ${esoName.substring(0, 30)}... already "${currentStatus}"`);
+                }
+            });
+            
+            // Refresh displays for Events and Schedule Calendar
+            renderDashboard();
+            renderProgressData();
+            renderEvents();
+            renderScheduleView();
+            
+            // Show detailed debug info
+            console.log('Status Update Debug Info:', debugInfo);
+            alert(`✅ Updated ${updatedCount} activity statuses!\n\n✓ Finding XY & MUBS to Sept: Done\n✓ Others to Dec: Done\n✓ Rest: In Progress\n\n📅 Events & Schedule Calendar updated!\n\nCheck console for details.`);
         }
     </script>
 </body>
