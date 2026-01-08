@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESO Program Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <h2>🚀 ESO Manager</h2>
+            <p>Program Dashboard</p>
+        </div>
+        
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+                <span class="icon">📊</span>
+                <span class="label">Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" data-page="schedule" onclick="navigateTo('schedule')">
+                <span class="icon">📅</span>
+                <span class="label">Deliverables</span>
+            </a>
+            <a href="#" class="nav-item" data-page="schedule" onclick="navigateTo('schedule')">
+                <span class="icon">📅</span>
+                <span class="label">Schedule</span>
+            </a>
+            <a href="#" class="nav-item" data-page="events" onclick="navigateTo('events')">
+                <span class="icon">🎯</span>
+                <span class="label">Events</span>
+            </a>
+            <a href="#" class="nav-item" data-page="eso" onclick="navigateTo('eso')">
+                <span class="icon">🤝</span>
+                <span class="label">ESO Outreach</span>
+            </a>
+            <a href="#" class="nav-item" data-page="reports" onclick="navigateTo('reports')">
+                <span class="icon">📈</span>
+                <span class="label">Reports</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button class="btn-download" onclick="downloadExcel()">
+                📥 Download Excel
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+            <h1 id="page-title">Dashboard</h1>
+            <div class="header-actions">
+                <button class="btn-icon" onclick="refreshData()" title="Refresh">🔄</button>
+                <button class="btn-icon" onclick="showNotifications()" title="Notifications">🔔</button>
+            </div>
+        </header>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-content">
+                        <h3 id="stat-activities">0</h3>
+                        <p>Schedule Activities</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <h3 id="stat-events">0</h3>
+                        <p>Upcoming Events</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🤝</div>
+                    <div class="stat-content">
+                        <h3 id="stat-eso">0</h3>
+                        <p>ESO Activities</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <h3 id="stat-priority">0</h3>
+                        <p>High Priority</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="card">
+                    <h2>Recent Activities</h2>
+                    <div id="recent-activities" class="activity-list"></div>
+                </div>
+
+                <div class="card">
+                    <h2>Upcoming Events</h2>
+                    <div id="upcoming-events" class="event-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule Page -->
+        <div id="schedule-page" class="page">
+            <div class="page-header">
+                <div class="search-bar">
+                    <input type="text" id="schedule-search" placeholder="🔍 Search activities..." onkeyup="filterSchedule()">
+                </div>
+                <div class="filters">
+                    <select id="priority-filter" onchange="filterSchedule()">
+                        <option value="">All Priorities</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                    <button class="btn-primary" onclick="addNewActivity()">+ Add Activity</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Activity</th>
+                            <th>Tasks</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Progress</th>
+                            <th>Priority</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedule-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Events Page -->
+        <div id="events-page" class="page">
+            <div class="page-header">
+                <div class="search-bar">
+                    <input type="text" id="events-search" placeholder="🔍 Search events..." onkeyup="filterEvents()">
+                </div>
+                <div class="filters">
+                    <select id="workstream-filter" onchange="filterEvents()">
+                        <option value="">All Workstreams</option>
+                        <option value="Incubation and Acceleration">Incubation & Acceleration</option>
+                        <option value="Communications">Communications</option>
+                        <option value="Learning Workstream">Learning</option>
+                    </select>
+                    <button class="btn-primary" onclick="addNewEvent()">+ Add Event</button>
+                </div>
+            </div>
+
+            <div class="cards-grid" id="events-grid"></div>
+        </div>
+
+        <!-- ESO Page -->
+        <div id="eso-page" class="page">
+            <div class="page-header">
+                <div class="search-bar">
+                    <input type="text" id="eso-search" placeholder="🔍 Search ESO activities..." onkeyup="filterESO()">
+                </div>
+                <div class="filters">
+                    <select id="status-filter" onchange="filterESO()">
+                        <option value="">All Status</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <button class="btn-primary" onclick="addNewESO()">+ Add Activity</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ESO Name</th>
+                            <th>Task</th>
+                            <th>Assigned To</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Status</th>
+                            <th>Location</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eso-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reports Page -->
+        <div id="reports-page" class="page">
+            <div class="reports-content">
+                <div class="card">
+                    <h2>📊 Program Statistics</h2>
+                    <div class="report-stats">
+                        <div class="report-stat">
+                            <h4>Completion Rate</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="completion-rate" style="width: 0%"></div>
+                            </div>
+                            <p id="completion-text">0%</p>
+                        </div>
+                        <div class="report-stat">
+                            <h4>Active ESO Partners</h4>
+                            <p class="big-number" id="active-esos">0</p>
+                        </div>
+                        <div class="report-stat">
+                            <h4>Events This Quarter</h4>
+                            <p class="big-number" id="quarter-events">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>📅 Timeline Overview</h2>
+                    <div id="timeline-view"></div>
+                </div>
+
+                <div class="card">
+                    <h2>🎯 Priority Breakdown</h2>
+                    <div id="priority-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Details -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

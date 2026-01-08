@@ -1,0 +1,14 @@
+{
+  "name": "eso-program-manager",
+  "version": "1.0.0",
+  "description": "ESO Program Management Dashboard",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server",
+    "build": "echo 'Static site - no build needed'",
+    "start": "live-server"
+  },
+  "keywords": ["eso", "program-management", "dashboard"],
+  "author": "Your Name",
+  "license": "MIT"
+}
